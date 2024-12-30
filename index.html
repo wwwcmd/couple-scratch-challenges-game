@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Indulge in a seductive and playful experience with 365 Sexy Scratch Cards that reveal irresistible, tantalizing positions every day!">
+    <meta name="author" content="Your Name">
+    <title>365 Sexy Scratch Cards</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Font and Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        /* Custom styles for blurred background */
+        body.blurred-background {
+            overflow: hidden; /* Disable scrolling when modal is active */
+        }
+
+        /* Apply blur effect to the background content */
+        body.blurred-background .background-wrapper {
+            filter: blur(8px);
+            pointer-events: none; /* Disable interactions with blurred content */
+        }
+
+        /* Ensure modal stays in front and is unaffected by blur */
+        .modal {
+            z-index: 1050 !important; /* Make sure modal stays above the blurred content */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Age Verification Modal (It will remain unaffected by the blur) -->
+    <div class="modal" id="ageVerificationModal" tabindex="-1" role="dialog" aria-labelledby="ageVerificationLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ageVerificationLabel">Age Verification Required</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="lead">This website contains sizzling, adult content meant for those who are 18 and over.</p>
+                    <p>Are you ready for some spicy fun? We just need to confirm that you're 18 or older.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success btn-lg" id="confirmAge">Yes, I'm 18+</button>
+                    <button type="button" class="btn btn-danger btn-lg" id="declineAge">No, I'm not 18</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page content wrapper (background content will be blurred) -->
+    <div class="background-wrapper">
+        <div class="overlay"></div>
+        <div class="main-container">
+            <h1 class="display-4 text-center text-light">Welcome to 365 Sexy Scratch Cards</h1>
+            <h2 class="text-center text-warning">A New Steamy, Sensual Position Every Day – Dare to Try It?</h2>
+            <p class="subheading text-danger text-center">Get ready to uncover steamy and playful positions behind every card!</p>
+            <div class="container">
+                <div class="row justify-content-center" id="cards-container"></div>
+                <p>If you don't like the current cards, you can try a new one!</p>
+            </div>
+            <button id="new-cards-btn" class="btn btn-danger mt-4 btn-lg w-50">Reveal New Spicy Positions</button>
+        </div>
+
+        <!-- The card container and the next card button -->
+<div class="container">
+    <div class="row justify-content-center" id="cards-container"></div>
+</div>
+
+<!-- "Next Card" button -->
+<button id="next-card-btn" class="btn btn-danger mt-4 btn-lg w-50" style="display: none;">Next Card</button>
+
+        <footer class="text-center mt-5">
+            <p class="text-light">© 2024 <a href="https://www.yourwebsite.com" target="_blank" class="text-warning">Your Sexy Site</a>. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Show the age verification modal when the page loads
+            $('#ageVerificationModal').modal('show'); // Show the modal on page load
+
+            // Apply blur to the background content only (not the modal)
+            $('body').addClass('blurred-background'); // Apply blur effect
+
+            // If user clicks Yes (18+), close the modal, remove blur effect, and allow access to the website
+            $('#confirmAge').click(function () {
+                $('#ageVerificationModal').modal('hide'); // Close the modal
+                $('body').removeClass('blurred-background'); // Remove blur effect
+                $('body').css('overflow', 'auto'); // Enable scrolling and interaction after modal closes
+            });
+
+            // If user clicks No (not 18+), redirect them to a safe page (like Google)
+            $('#declineAge').click(function () {
+                alert("You must be 18 or older to access this steamy content.");
+                window.location.href = 'https://www.google.com'; // Redirect to Google or another safe page
+            });
+        });
+    </script>
+</body>
+
+</html>
