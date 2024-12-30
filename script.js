@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return `images/DOC-20241229-WA0001[1]_page-${paddedNum}.jpg`; // Path to image with your naming convention
     }
 
+    // Fixed size for cards (width and height)
+    const cardWidth = 300;
+    const cardHeight = 450;
+
     // Function to create and render scratchable cards
     function renderCards() {
         // Clear the current cards in the container
@@ -27,10 +31,14 @@ document.addEventListener('DOMContentLoaded', function () {
             card.style.position = 'relative';
             card.style.cursor = 'pointer'; // Added a cursor to indicate interactivity
 
+            // Set fixed card size
+            card.style.width = `${cardWidth}px`;
+            card.style.height = `${cardHeight}px`;
+
             // Create a canvas element for the scratch effect
             const canvas = document.createElement('canvas');
-            canvas.width = 300;
-            canvas.height = 450;
+            canvas.width = cardWidth;
+            canvas.height = cardHeight;
             canvas.style.position = 'absolute';
             canvas.style.top = '0';
             canvas.style.left = '0';

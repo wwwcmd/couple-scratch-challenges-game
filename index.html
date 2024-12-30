@@ -7,11 +7,16 @@
     <meta name="description" content="Indulge in a seductive and playful experience with 365 Sexy Scratch Cards that reveal irresistible, tantalizing positions every day!">
     <meta name="author" content="Your Name">
     <title>365 Sexy Scratch Cards</title>
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.jpg" type="image/jpg">
+    
+    <!-- Font Awesome for speaker icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <!-- Font and Bootstrap CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+    
     <style>
         /* Custom styles for blurred background */
         body.blurred-background {
@@ -28,11 +33,59 @@
         .modal {
             z-index: 1050 !important; /* Make sure modal stays above the blurred content */
         }
+
+        /* Music Toggle Button Position */
+        #toggleMusicBtn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1051; /* Make sure the button stays above the page content */
+        }
+
+        /* Styles for the dare card */
+        .dare-card {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            border: 2px solid #7f8c8d; /* Light grey border */
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            background-color: #95a5a6; /* Light grey background */
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .dare-card:hover {
+            background-color: #7f8c8d; /* Darker grey when hovered */
+        }
+
+        /* Responsiveness */
+        @media (max-width: 767px) {
+            .main-container {
+                padding: 20px;
+            }
+
+            #new-cards-btn, #give-dare-btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Age Verification Modal (It will remain unaffected by the blur) -->
+    <!-- Age Verification Modal -->
     <div class="modal" id="ageVerificationModal" tabindex="-1" role="dialog" aria-labelledby="ageVerificationLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -61,20 +114,34 @@
             <h1 class="display-4 text-center text-light">Welcome to 365 Sexy Scratch Cards</h1>
             <h2 class="text-center text-warning">A New Steamy, Sensual Position Every Day – Dare to Try It?</h2>
             <p class="subheading text-danger text-center">Get ready to uncover steamy and playful positions behind every card!</p>
+
             <div class="container">
                 <div class="row justify-content-center" id="cards-container"></div>
                 <p>If you don't like the current cards, you can try a new one!</p>
             </div>
+
             <button id="new-cards-btn" class="btn btn-danger mt-4 btn-lg w-50">Reveal New Spicy Positions</button>
+            <button id="give-dare-btn" class="btn btn-warning mt-4 btn-lg w-50">Challenge Your Partner with a Dare</button>
         </div>
 
-        <!-- The card container and the next card button -->
-<div class="container">
-    <div class="row justify-content-center" id="cards-container"></div>
-</div>
+        <!-- Dare card container -->
+        <div class="container">
+            <div class="row justify-content-center" id="cards-container"></div>
+        </div>
 
-<!-- "Next Card" button -->
-<button id="next-card-btn" class="btn btn-danger mt-4 btn-lg w-50" style="display: none;">Next Card</button>
+        <!-- "Next Card" button -->
+        <button id="next-card-btn" class="btn btn-danger mt-4 btn-lg w-50" style="display: none;">Next Card</button>
+
+        <!-- Background music -->
+        <audio id="backgroundMusic" loop>
+            <source src="music/music.mp3" type="audio/mpeg"> <!-- Path to music file -->
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Music Toggle Button -->
+        <button id="toggleMusicBtn" aria-label="Toggle Music">
+            <i id="speakerIcon" class="fas fa-volume-up"></i> <!-- Font Awesome Icon -->
+        </button>
 
         <footer class="text-center mt-5">
             <p class="text-light">© 2024 <a href="https://www.yourwebsite.com" target="_blank" class="text-warning">Your Sexy Site</a>. All Rights Reserved.</p>
@@ -105,6 +172,114 @@
             $('#declineAge').click(function () {
                 alert("You must be 18 or older to access this steamy content.");
                 window.location.href = 'https://www.google.com'; // Redirect to Google or another safe page
+            });
+
+            // Dare Button functionality
+            const dares = [
+    "Kiss your partner for 10 seconds.",
+    "Give your partner a shoulder massage.",
+    "Do 20 jumping jacks while keeping eye contact.",
+    "Whisper something naughty to your partner.",
+    "Do your best seductive dance for 30 seconds.",
+    "Improvise a sexy poem and recite it.",
+    "Let your partner blindfold you for the next dare.",
+    "Do a striptease for your partner (without full nudity).",
+    "Give your partner a 5-minute foot rub.",
+    "Tell your partner your favorite memory of them.",
+    "Act like a sexy cat for the next minute.",
+    "Slowly and seductively remove one item of clothing.",
+    "Send your partner a sexy text message.",
+    "Let your partner choose your next outfit.",
+    "Do your best impression of a seductive movie scene.",
+    "Let your partner write something on your body with a marker.",
+    "Give your partner a passionate kiss for 20 seconds.",
+    "Dance around the room with no music.",
+    "Re-enact a famous movie love scene.",
+    "Try to make your partner laugh with a silly sexy dance.",
+    "Whisper your deepest secret to your partner.",
+    "Let your partner take a photo of you in your current pose.",
+    "Do a seductive walk from one side of the room to the other.",
+    "Act out your favorite fantasy without speaking.",
+    "Give your partner a long, lingering hug.",
+    "Pretend you're on a romantic date with your partner and act it out.",
+    "Improvise a sensual massage for your partner's back.",
+    "Let your partner feed you something with their hands.",
+    "Do 10 squats while maintaining eye contact.",
+    "Send a flirty message to your partner right now.",
+    "Do a sexy runway walk across the room.",
+    "Let your partner blindfold you and guess the next sensation.",
+    "Pretend you're a character from a romantic movie for the next minute.",
+    "Let your partner choose a body part for you to kiss.",
+    "Have your partner write something romantic on your body.",
+    "Give your partner a slow kiss on the neck.",
+    "Let your partner tie your hands lightly for the next dare.",
+    "Kiss your partner's neck for 15 seconds.",
+    "Act like you're meeting your partner for the first time and flirt.",
+    "Sit on your partner’s lap and give them a gentle kiss.",
+    "Take a seductive selfie and show it to your partner.",
+    "Walk around the room like you're on a catwalk.",
+    "Give your partner a playful or passionate peck on the lips.",
+    "Describe your most romantic fantasy to your partner.",
+    "Let your partner kiss you anywhere (within limits).",
+    "Pretend you're in a passionate embrace and act it out.",
+    "Send a flirtatious selfie to your partner with a smile.",
+    "Do a sexy dance to your favorite song without music.",
+    "Tell your partner your most secret desire.",
+    "Create a new sexy move and teach it to your partner.",
+    "Act like you're auditioning for a romance movie scene.",
+    "Let your partner pick a song and dedicate it to you.",
+    "Do a seductive pose and hold it for 30 seconds.",
+    "Create a sexy love letter to your partner on the spot.",
+    "Take turns giving each other a soft kiss in different places.",
+    "Pretend you're a character from a romantic novel.",
+    "Draw a heart or something sexy on your partner's skin with your finger.",
+    "Give your partner a surprise kiss while they're not expecting it.",
+    "Let your partner lead you in a slow, romantic dance.",
+    "Do your best impression of a sensual model for your partner.",
+    "Give your partner a kiss on the lips and hold it for 5 seconds.",
+    "Act out a slow motion kiss with your partner.",
+    "Pretend you're giving a love speech to your partner and tell them why they're special.",
+    "Slowly trace your finger along your partner's arm or back.",
+    "Let your partner choose a romantic song to dance to.",
+    "Give your partner a gentle kiss on the hand.",
+    "Give your partner a loving hug and whisper something sweet in their ear.",
+    "Reenact a romantic scene from a movie you've both seen together.",
+    "Kiss your partner's lips, then neck, then lips again.",
+    "Do a seductive walk toward your partner and give them a kiss.",
+    "Pretend you're a professional dancer and teach your partner a sexy move.",
+    "Give your partner a surprise passionate kiss when they’ve just woken up."
+            ];
+
+
+            let dareIndex = 0; // Start with the first dare
+
+            // Hide the dare card initially
+            const dareCard = $('<div class="dare-card" style="display:none;"></div>');
+            dareCard.text(dares[dareIndex]); // Display the first dare
+            $('#cards-container').append(dareCard);
+
+            // Change dare when the button is clicked
+            $('#give-dare-btn').click(function () {
+                dareCard.show(); // Show the dare card when the button is clicked
+                dareIndex = (dareIndex + 1) % dares.length; // Loop back to the start after the last dare
+                dareCard.text(dares[dareIndex]); // Update the card text with the new dare
+            });
+
+            // Music Toggle functionality
+            let musicPlaying = true;
+
+            $('#toggleMusicBtn').click(function () {
+                const audio = $('#backgroundMusic')[0];
+
+                if (musicPlaying) {
+                    audio.pause(); // Pause music
+                    $('#speakerIcon').removeClass('fa-volume-up').addClass('fa-volume-off'); // Change icon to off
+                } else {
+                    audio.play(); // Play music
+                    $('#speakerIcon').removeClass('fa-volume-off').addClass('fa-volume-up'); // Change icon to on
+                }
+
+                musicPlaying = !musicPlaying; // Toggle the music status
             });
         });
     </script>
