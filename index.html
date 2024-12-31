@@ -7,7 +7,7 @@
     <meta name="description" content="Indulge in a seductive and playful experience with 365 Sexy Scratch Cards that reveal irresistible, tantalizing positions every day!">
     <meta name="author" content="Your Name">
     <title>365 Sexy Scratch Cards</title>
-    <link rel="icon" href="images/favicon.jpg" type="image/jpg">
+    <link rel="icon" href="images/x-icon.jpg" type="image/jpg">
     
     <!-- Font Awesome for speaker icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -175,9 +175,7 @@
             });
 
             // Dare Button functionality
-            const dares = [
-    "Kiss your partner for 10 seconds.",
-    "Give your partner a shoulder massage.",
+const dares = [
     "Do 20 jumping jacks while keeping eye contact.",
     "Whisper something naughty to your partner.",
     "Do your best seductive dance for 30 seconds.",
@@ -248,22 +246,22 @@
     "Do a seductive walk toward your partner and give them a kiss.",
     "Pretend you're a professional dancer and teach your partner a sexy move.",
     "Give your partner a surprise passionate kiss when they’ve just woken up."
-            ];
+            
+];
 
+// Hide the dare card initially
+const dareCard = $('<div class="dare-card" style="display:none;"></div>');
+$('#cards-container').append(dareCard);
 
-            let dareIndex = 0; // Start with the first dare
+// Change dare when the button is clicked
+$('#give-dare-btn').click(function () {
+    // Generate a random index for the dares array
+    const randomIndex = Math.floor(Math.random() * dares.length);
+    
+    dareCard.show(); // Show the dare card when the button is clicked
+    dareCard.text(dares[randomIndex]); // Update the card text with a random dare
+});
 
-            // Hide the dare card initially
-            const dareCard = $('<div class="dare-card" style="display:none;"></div>');
-            dareCard.text(dares[dareIndex]); // Display the first dare
-            $('#cards-container').append(dareCard);
-
-            // Change dare when the button is clicked
-            $('#give-dare-btn').click(function () {
-                dareCard.show(); // Show the dare card when the button is clicked
-                dareIndex = (dareIndex + 1) % dares.length; // Loop back to the start after the last dare
-                dareCard.text(dares[dareIndex]); // Update the card text with the new dare
-            });
 
             // Music Toggle functionality
             let musicPlaying = true;
